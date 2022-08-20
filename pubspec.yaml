@@ -1,0 +1,26 @@
+name: rainbow_jam
+description: A 1-bit Rainbow Game. Whatever that is.
+version: 0.1.0
+
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flame: 1.3.0
+  flame_audio: 1.3.1
+  flame_bloc: 1.7.0
+
+dev_dependencies:
+  flame_lint: 0.1.2
+  flame_test: 1.7.0
+  flutter_test:
+    sdk: flutter
+  integration_test: 
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
