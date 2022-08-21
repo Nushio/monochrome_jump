@@ -17,13 +17,3 @@ A few resources to get you started if this is your first Flutter project:
 
  - To re-generate Hive components, use
 	> flutter packages pub run build_runner build
-
-
-Powerups:
-  Red: On Fire. Enemies die when hit.
-  Orange: Bigger. 2x size. Walk through enemies.
-  Yellow: Gas. Movement is like a Jetpack.
-  Green: Default?
-  Blue: Water. Go Flat.
-  Indigo: Ice. Freeze enemies.
-  Purple: 
