@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:monochrome_jump/game/audio_manager.dart';
 import 'package:monochrome_jump/game/components/player.dart';
@@ -11,7 +12,7 @@ import 'package:monochrome_jump/widgets/hud.dart';
 import 'package:monochrome_jump/widgets/pause_menu.dart';
 
 class MonochromeJumpGame extends FlameGame
-    with TapDetector, HasCollisionDetection {
+    with TapDetector, KeyboardEvents, HasCollisionDetection {
   static const _imageAssets = ['monochrome_tilemap_packed.png'];
 
   static const _audioAssets = [
@@ -20,7 +21,7 @@ class MonochromeJumpGame extends FlameGame
     'Ouch__002.wav'
   ];
 
-  late Player _rainbow;
+  late Player _player;
   late Settings settings;
   late TerrainManager _terrainManager;
   late bool gameStart = false;
@@ -42,16 +43,16 @@ class MonochromeJumpGame extends FlameGame
   }
 
   void startGamePlay() {
-    _rainbow =
+    _player =
         Player(images.fromCache('monochrome_tilemap_packed.png'), settings);
     _terrainManager = TerrainManager();
 
-    add(_rainbow);
+    add(_player);
     add(_terrainManager);
   }
 
   void _disconnectActors() {
-    _rainbow.removeFromParent();
+    _player.removeFromParent();
 
     _terrainManager.removeAllTerrain();
     _terrainManager.removeFromParent();
@@ -75,9 +76,27 @@ class MonochromeJumpGame extends FlameGame
   @override
   void onTapDown(TapDownInfo info) {
     if (overlays.isActive(Hud.id)) {
-      _rainbow.jump();
+      _player.jump();
     }
     super.onTapDown(info);
+  }
+
+  @override
+  KeyEventResult onKeyEvent(
+    RawKeyEvent event,
+    Set<LogicalKeyboardKey> keysPressed,
+  ) {
+    final isKeyDown = event is RawKeyDownEvent;
+
+    final isSpace = keysPressed.contains(LogicalKeyboardKey.space);
+
+    if (isSpace && isKeyDown) {
+      if (overlays.isActive(Hud.id)) {
+        _player.jump();
+      }
+      return KeyEventResult.handled;
+    }
+    return KeyEventResult.ignored;
   }
 
   Future<Settings> _readSettings() async {
