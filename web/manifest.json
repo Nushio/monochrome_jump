@@ -1,6 +1,6 @@
 {
-    "name": "rainbow_jam",
-    "short_name": "rainbow_jam",
+    "name": "monochrome_jump",
+    "short_name": "monochrome_jump",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
